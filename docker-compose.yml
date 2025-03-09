@@ -1,0 +1,26 @@
+version: '3.9'
+services:
+  messagesservice:
+    container_name: messagesservice
+    build:
+      dockerfile: Dockerfile
+      context: .
+    hostname: messagesservice
+    ports:
+      - "8086:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://hostelDB:5432/hostelService
+      - SPRING_DATASOURCE_USERNAME=hostel
+      - SPRING_DATASOURCE_PASSWORD=ilia
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 10s
+      retries: 5
+      start_period: 15s
+      timeout: 10s
+    networks:
+      - shared-network
+
+networks:
+  shared-network:
+    external: true
