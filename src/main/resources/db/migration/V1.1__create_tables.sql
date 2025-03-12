@@ -10,14 +10,14 @@ CREATE TABLE messages_meta (
     "id" UUID NOT NULL UNIQUE,
     "title" TEXT,
     "broadcast_id" UUID NOT NULL REFERENCES broadcasts(id),
-    "sender" UUID NOT NULL REFERENCES "user".users ("id"),
+    "sender" UUID NOT NULL,
     "scheduled_at" TIMESTAMP NOT NULL,
     PRIMARY KEY("id")
 );
 
 
 CREATE TABLE "subscriptions" (
-    "user_id" UUID NOT NULL REFERENCES "user".users("id"),
+    "user_id" UUID NOT NULL,
     "broadcast_id" UUID NOT NULL REFERENCES broadcasts(id),
     "started_at" TIMESTAMP NOT NULL,
     PRIMARY KEY("user_id", "broadcast_id")
